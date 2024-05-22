@@ -54,7 +54,7 @@ public class ShootBehaviour : GenericBehaviour
 	private Texture2D originalCrosshair;                           // Original unarmed aim behaviour crosshair.
 	private bool isShooting = false;                               // Boolean to determine if player is holding shoot button.
 	private bool isChangingWeapon = false;                         // Boolean to determine if player is holding change weapon button.
-	private bool isShotAlive = false;                              // Boolean to determine if there is any active shot on scene.
+	private bool isShotAlive = false;  // Boolean to determine if there is any active shot on scene.
 
 	// Start is always called after any Awake functions.
 	void Start()
@@ -198,6 +198,10 @@ public class ShootBehaviour : GenericBehaviour
 				if(hit.collider)
 					hit.collider.SendMessageUpwards("HitCallback", new HealthManager.DamageInfo(
 						hit.point, ray.direction, weapons[weapon].bulletDamage, hit.collider), SendMessageOptions.DontRequireReceiver);
+                if (isOrganic)
+                {
+                    hit.collider.GetComponent<EnemyShoot>().hp -= 1;
+                }
 			}
 		}
 		// No target was hit.

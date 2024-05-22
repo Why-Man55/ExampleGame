@@ -21,16 +21,20 @@ public class ShowQuest : MonoBehaviour
         buttonState = CameraRay.rayWatcher;
         if (buttonState && Input.GetKeyDown(KeyCode.E) && isQuest1Open)
         {
-            CursorMan1.showCursor(activateStatus);
-            questMarker.SetActive(false);
+            destrMrk();
             quest1Menu.SetActive(activateStatus);
             movingScript.enabled = !activateStatus;
             activateStatus = !activateStatus;
         }
         if (isQuest1Open == false)
         {
-            questMarker.SetActive(false);
+            destrMrk();
             movingScript.enabled = true;
         }
+    }
+
+    private void destrMrk()
+    {
+        Destroy(questMarker);
     }
 }

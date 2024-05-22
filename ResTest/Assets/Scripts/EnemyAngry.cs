@@ -9,12 +9,14 @@ public class EnemyAngry : MonoBehaviour
     [SerializeField]
     private Animator anim;
 
-    Rigidbody rb;
-    private float speed = 6.0f;
+    Vector3 startPosition;
+    public float duration;
+    float timeElapsed = 0f;
     private float dist;
 
     void Start()
     {
+        startPosition = transform.position;
         anim = GetComponent<Animator>();
         setPlrState(0);
     }
@@ -29,16 +31,24 @@ public class EnemyAngry : MonoBehaviour
         else if(dist < 15.0f && dist > 3.0f)
         {
             setPlrState(1);
+            transform.position = Vector3.Lerp(startPosition, player.transform.position, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            anim.SetInteger("attackState", 0);
+            transform.LookAt(player.transform.position);
+        }
+        else
+        {
+            setRndAttack();
         }
     }
 
     private void setRndAttack()
     {
-        anim.SetInt("attackState", Random.Range(1, 3));
+        anim.SetInteger("attackState", Random.Range(1, 3));
     }
 
     private void setPlrState(int state)
     {
-        anim.SetInt("seePlayerState", state);
+        anim.SetInteger("seePlayerState", state);
     }
 }

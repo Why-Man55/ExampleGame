@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class AcceptQuests : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class AcceptQuests : MonoBehaviour
     private GameObject enemy3;
     [SerializeField]
     private GameObject enemy4;
+    [SerializeField]
+    private GameObject newQuest;
+    [SerializeField]
+    private TMP_Text questText;
 
     void Update()
     {
@@ -38,8 +43,10 @@ public class AcceptQuests : MonoBehaviour
             enemy3.SetActive(true);
             enemy4.SetActive(true);
             Destroy(mainQuestMenu);
+            Destroy(newQuest);
             ShowQuest.isQuest1Open = false;
             Destroy(gameObject);
+            questText.text = "0/4 enemies eliminated";
         }
     }
 }
